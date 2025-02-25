@@ -1,0 +1,23 @@
+<form #form="ngForm" (ngSubmit)="onSave()">
+  <div class="form-field">
+    <label for="email">email</label>
+    <input pInputText
+           type="text"
+           id="email"
+           name="name"
+           [(ngModel)]="editedAuth().email"
+           required>
+  </div>
+  <div class="form-field">
+    <label for="password">password</label>
+    <input pInputText
+           type="text"
+           id="password"
+           name="name"
+           [(ngModel)]="editedAuth().password"
+           required>
+  </div>
+  <div class="flex justify-content-between">
+    <p-button type="submit" [disabled]="!form.valid" label="Enregistrer" severity="success"/>
+  </div>
+</form>
