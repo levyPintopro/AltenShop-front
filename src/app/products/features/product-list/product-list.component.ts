@@ -6,6 +6,7 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import {AuthService} from "../../../auth/data-access/auth.service";
 
 const emptyProduct: Product = {
   id: 0,
@@ -33,6 +34,7 @@ const emptyProduct: Product = {
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
+  private readonly authService = inject(AuthService)
 
   public readonly products = this.productsService.products;
 
@@ -40,8 +42,11 @@ export class ProductListComponent implements OnInit {
   public isCreation = false;
   public readonly editedProduct = signal<Product>(emptyProduct);
 
+  public isAdmin = false
+
   ngOnInit() {
     this.productsService.get().subscribe();
+    this.isAdmin = this.authService.isAdmin ?? false
   }
 
   public onCreate() {

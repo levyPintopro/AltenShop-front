@@ -38,4 +38,7 @@ export class AuthService {
   get email(){
     return localStorage.getItem('email')
   }
+  get isAdmin(){
+    if(this.email === 'admin@admin.com') return true
+  }
 }
