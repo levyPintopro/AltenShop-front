@@ -7,6 +7,7 @@ import { CardModule } from "primeng/card";
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import {AuthService} from "../../../auth/data-access/auth.service";
+import {BasketService} from "../../../basket/data-access/basket.service";
 
 const emptyProduct: Product = {
   id: 0,
@@ -35,8 +36,10 @@ const emptyProduct: Product = {
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   private readonly authService = inject(AuthService)
+  private readonly  basketService = inject(BasketService)
 
   public readonly products = this.productsService.products;
+  public readonly basket = this.basketService.basket
 
   public isDialogVisible = false;
   public isCreation = false;
@@ -73,6 +76,20 @@ export class ProductListComponent implements OnInit {
     }
     this.closeDialog();
   }
+
+  addBasket(product: Product) {
+    const updatedBasket = this.basket().map(item =>
+      item.productId === product.id
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    );
+    if (!this.basket().some(item => item.productId === product.id)) {
+      updatedBasket.push({ productId: product.id, quantity: 1 });
+    }
+    this.basketService.add(updatedBasket).subscribe();
+  }
+
+
 
   public onCancel() {
     this.closeDialog();

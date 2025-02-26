@@ -28,7 +28,6 @@ export class AuthService {
   }
   public isConnected(): void {
     const token = localStorage.getItem('token');
-    console.log(!!token) ;
     this.isConnectedSubject.next(!!token)
   }
   get token(){

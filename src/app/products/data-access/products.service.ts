@@ -2,12 +2,14 @@ import { Injectable, inject, signal } from "@angular/core";
 import { Product } from "./product.model";
 import { HttpClient } from "@angular/common/http";
 import { catchError, Observable, of, tap } from "rxjs";
+import {AuthService} from "../../auth/data-access/auth.service";
 
 @Injectable({
     providedIn: "root"
 }) export class ProductsService {
 
     private readonly http = inject(HttpClient);
+    private readonly authService = inject(AuthService)
     private readonly path = "http://localhost:3333/v1/api/products";
     private readonly typeAuthorization = "bearer"
 
@@ -16,7 +18,7 @@ import { catchError, Observable, of, tap } from "rxjs";
     public readonly products = this._products.asReadonly();
 
     public get(): Observable<Product[]> {
-        return this.http.get<Product[]>(this.path, {headers: {'Authorization': `${this.typeAuthorization} ${localStorage.getItem('token')}`}}).pipe(
+        return this.http.get<Product[]>(this.path, {headers: {'Authorization': `${this.typeAuthorization} ${this.authService.token}`}}).pipe(
             catchError((error) => {
                 return this.http.get<Product[]>("assets/products.json");
             }),
