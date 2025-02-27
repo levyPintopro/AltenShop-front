@@ -7,7 +7,7 @@
       {{ title }}
     </div>
     <div class="p-toolbar-group-end flex"  >
-      <p-button icon="pi pi-shopping-cart" [rounded]="true" [text]="true" severity="help" *ngIf="!isAdmin() && (basket().length >= 1)">{{basket().length}}</p-button>
+      <p-button icon="pi pi-shopping-cart" [rounded]="true" [text]="true" severity="help" *ngIf="!isAdmin() && (basket().length >= 1)" (onClick)="router.navigate(['/basket'])">{{basket().length}}</p-button>
       <p-button icon="pi pi-sign-out" [rounded]="true" [text]="true" severity="danger" (onClick)="logout()" />
     </div>
   </p-toolbar>

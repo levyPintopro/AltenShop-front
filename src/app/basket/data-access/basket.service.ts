@@ -34,7 +34,6 @@ export class BasketService {
         return of([])
       }),
       tap((currentBasket)=> {
-        console.log(currentBasket)
         this._basket.set(currentBasket)
       })
     )

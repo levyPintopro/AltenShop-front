@@ -7,11 +7,6 @@ import {BehaviorSubject, catchError, tap} from "rxjs";
 })
 export class AuthService {
 
-
-
-  //private isConnectedSubject = new BehaviorSubject<boolean>(false);
-  //isConnected$ = this.isConnectedSubject.asObservable();
-
   private _isConnected = signal<boolean>(false)
   userIsConnected = this._isConnected.asReadonly()
 
@@ -40,7 +35,6 @@ export class AuthService {
   }
   public isConnected(): void {
     const token = localStorage.getItem('token');
-    console.log('!!token', !!token)
     this._isConnected.set(!!token)
     this.isAdmin()
   }

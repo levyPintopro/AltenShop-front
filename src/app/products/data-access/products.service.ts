@@ -20,7 +20,8 @@ import {AuthService} from "../../auth/data-access/auth.service";
     public get(): Observable<Product[]> {
         return this.http.get<Product[]>(this.path, {headers: {'Authorization': `${this.typeAuthorization} ${this.authService.token}`}}).pipe(
             catchError((error) => {
-                return this.http.get<Product[]>("assets/products.json");
+              return of([])
+                //return this.http.get<Product[]>("assets/products.json");
             }),
             tap((products) => this._products.set(products)),
         );

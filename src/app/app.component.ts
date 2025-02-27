@@ -23,9 +23,9 @@ import {ButtonModule} from "primeng/button";
 })
 export class AppComponent {
 
-  private readonly router = inject(Router)
   private readonly authService = inject(AuthService)
   private readonly basketService = inject(BasketService)
+  readonly router = inject(Router)
   title = "ALTEN SHOP";
   isConnected = this.authService.userIsConnected
   basket = this.basketService.basket
