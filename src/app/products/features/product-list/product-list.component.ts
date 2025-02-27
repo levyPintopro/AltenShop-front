@@ -37,16 +37,12 @@ export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   private readonly authService = inject(AuthService)
   private readonly  basketService = inject(BasketService)
-
   public readonly products = this.productsService.products;
   public readonly basket = this.basketService.basket
-
+  public readonly editedProduct = signal<Product>(emptyProduct);
+  public isAdmin = this.authService.userIsAdmin
   public isDialogVisible = false;
   public isCreation = false;
-  public readonly editedProduct = signal<Product>(emptyProduct);
-
-  public isAdmin = this.authService.userIsAdmin
-
   ngOnInit() {
     this.productsService.get().subscribe();
     this.authService.isConnected()
