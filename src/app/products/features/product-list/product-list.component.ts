@@ -45,11 +45,10 @@ export class ProductListComponent implements OnInit {
   public isCreation = false;
   public readonly editedProduct = signal<Product>(emptyProduct);
 
-  public isAdmin = false
+  public isAdmin = this.authService.userIsAdmin
 
   ngOnInit() {
     this.productsService.get().subscribe();
-    this.isAdmin = this.authService.isAdmin ?? false
   }
 
   public onCreate() {

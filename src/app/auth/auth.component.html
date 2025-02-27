@@ -1,23 +1,35 @@
-<form #form="ngForm" (ngSubmit)="onSave()">
-  <div class="form-field">
-    <label for="email">email</label>
-    <input pInputText
-           type="text"
-           id="email"
-           name="name"
-           [(ngModel)]="editedAuth().email"
-           required>
-  </div>
-  <div class="form-field">
-    <label for="password">password</label>
-    <input pInputText
-           type="text"
-           id="password"
-           name="name"
-           [(ngModel)]="editedAuth().password"
-           required>
-  </div>
-  <div class="flex justify-content-between">
-    <p-button type="submit" [disabled]="!form.valid" label="Enregistrer" severity="success"/>
-  </div>
-</form>
+<p-card >
+  <ng-template pTemplate="title">Connexion</ng-template>
+  <ng-template pTemplate="content">
+    <form #form="ngForm" (ngSubmit)="onSave()">
+      <div class="p-fluid p-mb-3">
+        <label for="email">Email</label>
+        <input pInputText
+               type="email"
+               id="email"
+               name="email"
+               [(ngModel)]="editedAuth().email"
+               required>
+      </div>
+
+      <div class="p-fluid p-mb-3">
+        <label for="password">Mot de passe</label>
+        <p-password
+          id="password"
+          name="password"
+          [(ngModel)]="editedAuth().password"
+          [feedback]="false"
+          required>
+        </p-password>
+      </div>
+
+      <div class="p-mt-3">
+        <p-button type="submit"
+                  [disabled]="!form.valid"
+                  label="Enregistrer"
+                  severity="success"
+                  class="w-full"/>
+      </div>
+    </form>
+  </ng-template>
+</p-card>

@@ -1,4 +1,4 @@
-<div *ngIf="_isConnected(); else isNotConected">
+<div *ngIf="isConnected(); else isNotConected">
   <p-toolbar [style]="{ height: '100px' }">
     <div class="p-toolbar-group-start">
       <img src="assets/icons/icon-72x72.png" alt="logo" />
@@ -6,8 +6,9 @@
     <div class="p-toolbar-group-center">
       {{ title }}
     </div>
-    <div class="p-toolbar-group-end">
-      <i class="pi pi-shopping-cart" style="font-size: 2rem">{{basket().length}}</i>
+    <div class="p-toolbar-group-end flex" [hidden]="isAdmin()" >
+      <i class="pi pi-shopping-cart mr-3"  style="font-size: 2rem">{{basket().length}}</i>
+      <p-button icon="pi pi-sign-out" [rounded]="true" [text]="true" severity="danger" (onClick)="logout()" />
     </div>
   </p-toolbar>
   <p-splitter

@@ -1,16 +1,15 @@
 import {
-    Component,
-  } from "@angular/core";
+  Component, inject,
+} from "@angular/core";
 import { MenuItem } from "primeng/api";
   import { PanelMenuModule } from 'primeng/panelmenu';
-  
+import {AuthService} from "../../../auth/data-access/auth.service";
+
   @Component({
     selector: "app-panel-menu",
     standalone: true,
     imports: [PanelMenuModule],
-    template: `
-        <p-panelMenu [model]="items" styleClass="w-full" />
-    `
+    template: `<p-panelMenu [model]="items" styleClass="w-full" />`
   })
   export class PanelMenuComponent {
 
@@ -24,7 +23,11 @@ import { MenuItem } from "primeng/api";
             label: 'Produits',
             icon: 'pi pi-barcode',
             routerLink: ['/products/list']
+        },
+        {
+          label: 'Contact',
+          icon: 'pi pi-send',
+          routerLink: ['/products/list']
         }
     ]
   }
-  

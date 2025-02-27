@@ -2,7 +2,6 @@ import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../auth/data-access/auth.service";
 import {catchError, of, tap} from "rxjs";
-import {Product} from "../../products/data-access/product.model";
 import {ItemBasket} from "./item-basket.model";
 
 @Injectable({

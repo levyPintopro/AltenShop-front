@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, catchError, tap} from "rxjs";
 
@@ -7,8 +7,16 @@ import {BehaviorSubject, catchError, tap} from "rxjs";
 })
 export class AuthService {
 
-  private isConnectedSubject = new BehaviorSubject<boolean>(false);
-  isConnected$ = this.isConnectedSubject.asObservable();
+
+
+  //private isConnectedSubject = new BehaviorSubject<boolean>(false);
+  //isConnected$ = this.isConnectedSubject.asObservable();
+
+  private _isConnected = signal<boolean>(false)
+  userIsConnected = this._isConnected.asReadonly()
+
+  private _isAdmin = signal<boolean>(false)
+  userIsAdmin = this._isConnected.asReadonly()
   constructor(private http: HttpClient) {
   }
 
@@ -20,15 +28,19 @@ export class AuthService {
         return error;
       }),
       tap((response: any) => {
-        this.isConnectedSubject.next(true)
+        this._isConnected.set(true)
         localStorage.setItem('token', response.token)
         localStorage.setItem('email', response.email)})
 
     )
   }
+  public logout(){
+    localStorage.clear()
+    this._isConnected.set(false)
+  }
   public isConnected(): void {
     const token = localStorage.getItem('token');
-    this.isConnectedSubject.next(!!token)
+    this._isConnected.set(!!token)
   }
   get token(){
     return localStorage.getItem('token');
@@ -37,7 +49,7 @@ export class AuthService {
   get email(){
     return localStorage.getItem('email')
   }
-  get isAdmin(){
-    if(this.email === 'admin@admin.com') return true
+  isAdmin(){
+    if(this.email === 'admin@admin.com') this._isAdmin.set(true)
   }
 }
