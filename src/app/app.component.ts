@@ -33,6 +33,7 @@ export class AppComponent {
 
 
   async ngOnInit() {
+
     this.authService.isConnected()
     this.basketService.get().subscribe()
   }

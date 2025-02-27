@@ -16,7 +16,7 @@ export class AuthService {
   userIsConnected = this._isConnected.asReadonly()
 
   private _isAdmin = signal<boolean>(false)
-  userIsAdmin = this._isConnected.asReadonly()
+  userIsAdmin = this._isAdmin.asReadonly()
   constructor(private http: HttpClient) {
   }
 
@@ -40,7 +40,9 @@ export class AuthService {
   }
   public isConnected(): void {
     const token = localStorage.getItem('token');
+    console.log('!!token', !!token)
     this._isConnected.set(!!token)
+    this.isAdmin()
   }
   get token(){
     return localStorage.getItem('token');
@@ -50,6 +52,9 @@ export class AuthService {
     return localStorage.getItem('email')
   }
   isAdmin(){
-    if(this.email === 'admin@admin.com') this._isAdmin.set(true)
+    if(this.email === 'admin@admin.com') {
+      this._isAdmin.set(true)
+    }
+    else {this._isAdmin.set(false)}
   }
 }

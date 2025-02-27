@@ -6,8 +6,8 @@
     <div class="p-toolbar-group-center">
       {{ title }}
     </div>
-    <div class="p-toolbar-group-end flex" [hidden]="isAdmin()" >
-      <i class="pi pi-shopping-cart mr-3"  style="font-size: 2rem">{{basket().length}}</i>
+    <div class="p-toolbar-group-end flex"  >
+      <p-button icon="pi pi-shopping-cart" [rounded]="true" [text]="true" severity="help" *ngIf="!isAdmin() && (basket().length >= 1)">{{basket().length}}</p-button>
       <p-button icon="pi pi-sign-out" [rounded]="true" [text]="true" severity="danger" (onClick)="logout()" />
     </div>
   </p-toolbar>

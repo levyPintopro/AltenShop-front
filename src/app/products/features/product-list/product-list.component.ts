@@ -49,6 +49,8 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.productsService.get().subscribe();
+    this.authService.isConnected()
+    this.basketService.get().subscribe()
   }
 
   public onCreate() {
