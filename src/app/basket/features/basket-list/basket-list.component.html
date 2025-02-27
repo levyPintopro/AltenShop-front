@@ -1,0 +1,14 @@
+<h1 class="text-center">Mon panier</h1>
+
+<p-dataView #dv [value]="basketProducts()">
+  <ng-template pTemplate="list">
+    @for (product of basketProducts(); track product) {
+    <div class="p-card">
+      <p><strong>{{ product.name }}</strong></p>
+        <p>Prix : {{ product.price }}€</p>
+        <p>Quantité : {{ product.quantity }}</p>
+
+      </div>
+    }
+  </ng-template>
+</p-dataView>
